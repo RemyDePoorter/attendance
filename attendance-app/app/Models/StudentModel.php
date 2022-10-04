@@ -11,7 +11,7 @@ class StudentModel extends Model
 {
 
     public static function getAllStudents(){
-        return DB::select("SELECT matricule, first_name, last_name, group, attendance FROM students ORDER BY matricule");
+        return DB::select("SELECT matricule, prenom, nom, groupe, presence FROM students ORDER BY matricule");
     }
 
 }

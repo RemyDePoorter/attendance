@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use PDO;
@@ -13,17 +12,19 @@ class StudentModel extends Model
 
     public static function getAllStudents()
     {
-        return DB::select("SELECT matricule, prenom, nom, groupe, presence FROM students ORDER BY matricule");
+        $students = DB::select("SELECT matricule, prenom, nom, groupe, presence FROM students ORDER BY matricule");
+        return json_encode($students);
     }
 
-    public static function addStudent(Request $request)
+    public static function getStudent($matricule)
     {
-        $matricule = $request->get('matricule');
-        $prenom = $request->get("prenom");
-        $nom = $request->get("nom");
-        $groupe = $request->get("groupe");
-        $presence = $request->get("presence");
-        DB::table('students')->insert(
+        $student = DB::table('students')->where('matricule', $matricule)->get();
+        return json_encode($student);
+    }
+
+    public static function addStudent($matricule, $prenom, $nom, $groupe, $presence)
+    {
+        $student = DB::table('students')->insert(
             [
                 'matricule' => $matricule,
                 'prenom' => $prenom,
@@ -32,15 +33,12 @@ class StudentModel extends Model
                 'presence' => $presence
             ],
         );
+
+        return json_encode($student);
     }
 
-    public static function updateStudent(Request $request, $matricule)
+    public static function updateStudent($matricule, $prenom, $nom, $groupe, $presence)
     {
-        $matricule = $request->get('matricule');
-        $prenom = $request->get("prenom");
-        $nom = $request->get("nom");
-        $groupe = $request->get("groupe");
-        $presence = $request->get("presence");
         DB::table('students')->updateOrInsert(
             [
                 'matricule' => $matricule,
@@ -54,6 +52,6 @@ class StudentModel extends Model
 
     public static function deleteStudent($matricule)
     {
-        return DB::table('students')->delete($matricule);
+        DB::table('students')->where('matricule', $matricule)->delete();
     }
 }

@@ -3,11 +3,11 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class HttpTest extends TestCase
 {
+    use RefreshDatabase;
     public function test_get_all()
     {
         $response = $this->get('/api/students');
@@ -25,7 +25,7 @@ class HttpTest extends TestCase
         $response = $this->postJson(
             '/api/student',
             [
-                'matricule' => 'g56020',
+                'matricule' => 12345,
                 'prenom' => 'Dylan',
                 'nom' => 'Fandel',
                 'groupe' => 'e12',
@@ -42,7 +42,7 @@ class HttpTest extends TestCase
         $response = $this->withoutMiddleware()->patch(
             '/api/student/g12345',
             [
-                'matricule' => 'g12345',
+                'matricule' => 12345,
                 'prenom' => 'Dylan',
                 'nom' => 'Fandel',
                 'groupe' => 'e12',
@@ -57,7 +57,7 @@ class HttpTest extends TestCase
     public function test_delete()
     {
         $response = $this->withoutMiddleware()->delete(
-            '/api/student/g12342'
+            '/api/student/12345'
         );
 
         $response->assertStatus(204);

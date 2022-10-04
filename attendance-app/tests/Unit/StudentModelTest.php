@@ -2,141 +2,168 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use App\Models\StudentModel;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class StudentModelTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * ajout d'un étudiant classique
      */
-    public static function test_addStudent()
+    public function test_addStudent()
     {
-        $matricule = '1';
+        $matricule = 1;
         $prenom = "SpongeBob";
         $nom = "SquareParents";
         $groupe = "E12";
-        $presence = "true";
+        $presence = true;
 
-        addStudent($matricule, $prenom, $nom, $groupe, $presence);
-
+        StudentModel::addStudent($matricule, $prenom, $nom, $groupe, $presence);
         $this->assertDataBaseHas('students', [
             'matricule' => $matricule,
             'prenom' => $prenom,
             'nom' => $nom,
             'groupe' => $groupe,
-            'presence' => $presence]);
+            'presence' => $presence
+        ]);
     }
 
     /**
-     * ajout d'un étudiant avec matricule négatif
+     * @expectedException InvalidArgumentException
      */
-    public static function test_addStudent_withNegativeMatricule()
+    public function test_addStudent_withNegativeMatricule()
     {
-        $matricule = '-11';
+        $matricule = -11;
         $prenom = "SpongeBob";
         $nom = "SquareParents";
         $groupe = "E12";
-        $presence = "true";
+        $presence = true;
 
-        $test = addStudent($matricule, $prenom, $nom, $groupe, $presence);
+        StudentModel::addStudent($matricule, $prenom, $nom, $groupe, $presence);
 
-        $this->assertException( $test, 'InvalidArgumentException', 100, 'Etudiant non valide' );
+        $this->assertDatabaseMissing('students', [
+            'matricule' => $matricule,
+            'prenom' => $prenom,
+            'nom' => $nom,
+            'groupe' => $groupe,
+            'presence' => $presence
+        ]);
     }
 
     /**
      * ajout d'un étudiant avec matricule déjà existant
      */
-    public static function test_addStudent_AllReadyExist()
+    public function test_addStudent_AllReadyExist()
     {
-        $matricule = '1';
+        $matricule = 1;
         $prenom = "SpongeBob";
         $nom = "SquareParents";
         $groupe = "E12";
-        $presence = "true";
+        $presence = true;
 
-        $test = addStudent($matricule, $prenom, $nom, $groupe, $presence);
+        StudentModel::addStudent($matricule, $prenom, $nom, $groupe, $presence);
 
-        $this->assertException( $test, 'InvalidArgumentException', 100, 'L étudiant existe déjà' );
+        $this->assertDatabaseHas('students', [
+            'matricule' => $matricule,
+            'prenom' => $prenom,
+            'nom' => $nom,
+            'groupe' => $groupe,
+            'presence' => $presence
+        ]);
     }
 
     /**
      * Mise à jour classique d'un étudiant
      */
-    public static function test_updateStudent()
+    public function test_updateStudent()
     {
-        $matricule = '1';
+        $matricule = 1;
         $prenom = "SpongeBob";
         $nom = "SquareParents";
         $groupe = "E12";
-        $presence = "true";
+        $presence = true;
 
-        addStudent($matricule, $prenom, $nom, $groupe, $presence);
         $presence = "false";
-        updateStudent($matricule, $prenom, $nom, $groupe, $presence);
+        StudentModel::updateStudent($matricule, $prenom, $nom, $groupe, $presence);
 
         $this->assertDataBaseHas('students', [
             'matricule' => $matricule,
             'prenom' => $prenom,
             'nom' => $nom,
             'groupe' => $groupe,
-            'presence' => $presence]);
+            'presence' => $presence
+        ]);
     }
 
     /**
      * Mise à jour non valide d'un étudiant
      */
-    public static function test_updateStudent_withNegativeMatricule()
+    public function test_updateStudent_withNegativeMatricule()
     {
-        $matricule = '1';
+        $matricule = 1;
         $prenom = "SpongeBob";
         $nom = "SquareParents";
         $groupe = "E12";
-        $presence = "true";
+        $presence = true;
 
-        addStudent($matricule, $prenom, $nom, $groupe, $presence);
-        $matricule = "-1";
-        $test = updateStudent($matricule, $prenom, $nom, $groupe, $presence);
+        $matricule = -1;
+        StudentModel::updateStudent($matricule, $prenom, $nom, $groupe, $presence);
 
-        $this->assertException( $test, 'InvalidArgumentException', 100, 'Argument non valide' );
+        $this->assertDatabaseMissing('students', [
+            'matricule' => $matricule,
+            'prenom' => $prenom,
+            'nom' => $nom,
+            'groupe' => $groupe,
+            'presence' => $presence
+        ]);
     }
 
     /**
      * Suppression d'un étudiant
      */
-    public static function test_deleteStudent()
+    public function test_deleteStudent()
     {
-        $matricule = '1';
+        $matricule = 1;
         $prenom = "SpongeBob";
         $nom = "SquareParents";
         $groupe = "E12";
-        $presence = "true";
+        $presence = true;
 
-        addStudent($matricule, $prenom, $nom, $groupe, $presence);
-        deleteStudent($matricule);
+        StudentModel::addStudent($matricule, $prenom, $nom, $groupe, $presence);
+        StudentModel::deleteStudent($matricule);
 
         $this->assertDataBaseMissing('students', [
             'matricule' => $matricule,
             'prenom' => $prenom,
             'nom' => $nom,
             'groupe' => $groupe,
-            'presence' => $presence]);
+            'presence' => $presence
+        ]);
     }
 
     /**
      * Suppression d'un étudiant qui n'existe pas
      */
-    public static function test_deleteStudent_NoExist()
+    public function test_deleteStudent_NoExist()
     {
-        $matricule = '1';
+        $matricule = 1;
         $prenom = "SpongeBob";
         $nom = "SquareParents";
         $groupe = "E12";
-        $presence = "true";
+        $presence = true;
 
-        addStudent($matricule, $prenom, $nom, $groupe, $presence);
-        $test = deleteStudent($matricule);
+        StudentModel::addStudent($matricule, $prenom, $nom, $groupe, $presence);
+        StudentModel::deleteStudent($matricule);
 
-        $this->assertException( $test, 'InvalidArgumentException', 100, 'L etudiant n existe pas' );
+        $this->assertDatabaseMissing('students', [
+            'matricule' => $matricule,
+            'prenom' => $prenom,
+            'nom' => $nom,
+            'groupe' => $groupe,
+            'presence' => $presence
+        ]);
     }
 }

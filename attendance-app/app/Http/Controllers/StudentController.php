@@ -18,12 +18,13 @@ class StudentController extends Controller
     }
 
     public static function addStudent(Request $request)
-    {
+    {   
         $matricule = $request->get('matricule');
         $prenom = $request->get("prenom");
         $nom = $request->get("nom");
         $groupe = $request->get("groupe");
         $presence = $request->get("presence");
+
         $student = StudentModel::addStudent($matricule, $prenom, $nom, $groupe, $presence);
         return response()->json([
             "success" => true,

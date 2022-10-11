@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/students');
 Route::get('/students', [StudentController::class, 'studentsView']);
+Route::get('/token', function (){return csrf_token();});

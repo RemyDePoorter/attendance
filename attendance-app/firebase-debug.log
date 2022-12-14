@@ -1,0 +1,42 @@
+[debug] [2022-10-11T13:20:37.634Z] ----------------------------------------------------------------------
+[debug] [2022-10-11T13:20:37.635Z] Command:       /usr/local/bin/firebase /Users/remydepoorter/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase init
+[debug] [2022-10-11T13:20:37.636Z] CLI Version:   11.14.1
+[debug] [2022-10-11T13:20:37.636Z] Platform:      darwin
+[debug] [2022-10-11T13:20:37.636Z] Node Version:  v16.16.0
+[debug] [2022-10-11T13:20:37.639Z] Time:          Tue Oct 11 2022 15:20:37 GMT+0200 (GMT+02:00)
+[debug] [2022-10-11T13:20:37.640Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-10-11T13:20:37.652Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-10-11T13:20:37.653Z] > authorizing via signed-in user (52063@etu.he2b.be)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/remydepoorter/Documents/ESI/PRJG5/attendance/esi-attendance-fandel-depoorter/attendance-app
+
+[debug] [2022-10-11T13:23:40.786Z] ----------------------------------------------------------------------
+[debug] [2022-10-11T13:23:40.787Z] Command:       /opt/homebrew/Cellar/node/18.10.0/bin/node /opt/homebrew/bin/firebase init
+[debug] [2022-10-11T13:23:40.787Z] CLI Version:   11.14.1
+[debug] [2022-10-11T13:23:40.787Z] Platform:      darwin
+[debug] [2022-10-11T13:23:40.787Z] Node Version:  v18.10.0
+[debug] [2022-10-11T13:23:40.790Z] Time:          Tue Oct 11 2022 15:23:40 GMT+0200 (heure d’été d’Europe centrale)
+[debug] [2022-10-11T13:23:40.790Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-10-11T13:23:40.793Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-10-11T13:23:40.793Z] > authorizing via signed-in user (52063@etu.he2b.be)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/remydepoorter/Documents/ESI/PRJG5/attendance/esi-attendance-fandel-depoorter/attendance-app
+
